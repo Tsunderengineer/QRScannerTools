@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         Pattern.CASE_INSENSITIVE or Pattern.MULTILINE or Pattern.DOTALL
     )
 
+
     override fun onResume() {
         super.onResume()
         codeScanner.startPreview()
