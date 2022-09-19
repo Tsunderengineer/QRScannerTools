@@ -16,7 +16,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
                 NAME_COl + " TEXT," +
-                AGE_COL + " TEXT" + ")")
+                AGE_COL + " TEXT," +
+                RPM_COL + "INTEGER," +
+                KW_COL + "REAL," +
+                FRM_COL + "TEXT," +
+                AMP_COL + "REAL," +
+                HZ_COL + "INTEGER," +
+                POW_COL + "INTEGER," +
+                BEAR_COL + "TEXT," +
+                STAT_COL + "TEXT," +
+                DESC_COL + "TEXT," +
+                AGE_COL + "TEXT"+ ")")
 
         // we are calling sqlite
         // method for executing our query
@@ -30,7 +40,8 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
     // This method is for adding data in our database
-    fun addName(name : String, age : String ){
+    fun addName(name : String, age : String, rpm: String, kw: Double, frame: String, amp: Double, hz: Int, power: Int,
+                bearing: String, status: String, description: String ){
 
         // below we are creating
         // a content values variable
@@ -90,5 +101,15 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
         // below is the variable for age column
         val AGE_COL = "age"
+        val RPM_COL = "rpm"
+        val KW_COL = "kw"
+        val FRM_COL = "frame"
+        val AMP_COL = "amp"
+        val HZ_COL = "hz"
+        val POW_COL = "power"
+        val BEAR_COL = "bearing"
+        val STAT_COL = "status"
+        val DESC_COL = "description"
+
     }
 }

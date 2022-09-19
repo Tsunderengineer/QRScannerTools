@@ -45,12 +45,30 @@ class MainActivity : AppCompatActivity() {
             cursor!!.moveToFirst()
             Name.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)) + "\n")
             Age.append(cursor.getString(cursor.getColumnIndex(DBHelper.AGE_COL)) + "\n")
+            Rpm.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)) + "\n")
+            Kw.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)) + "\n")
+            FrameSize.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)) + "\n")
+            Ampere.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)) + "\n")
+            Hz.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)) + "\n")
+            Power.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)) + "\n")
+            Bearing.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)) + "\n")
+            Status.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)) + "\n")
+            Description.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)) + "\n")
 
             // moving our cursor to next
             // position and appending values
             while(cursor.moveToNext()){
                 Name.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)) + "\n")
                 Age.append(cursor.getString(cursor.getColumnIndex(DBHelper.AGE_COL)) + "\n")
+                Rpm.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)) + "\n")
+                Kw.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)) + "\n")
+                FrameSize.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)) + "\n")
+                Ampere.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)) + "\n")
+                Hz.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)) + "\n")
+                Power.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)) + "\n")
+                Bearing.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)) + "\n")
+                Status.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)) + "\n")
+                Description.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)) + "\n")
             }
 
             // at last we close our cursor
