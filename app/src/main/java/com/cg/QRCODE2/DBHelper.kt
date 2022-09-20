@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
+
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
 
@@ -16,7 +17,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
                 NAME_COl + " TEXT," +
-                AGE_COL + " TEXT," +
                 RPM_COL + "INTEGER," +
                 KW_COL + "REAL," +
                 FRM_COL + "TEXT," +
@@ -66,18 +66,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    // below method is to get
-    // all data from our database
-    fun getName(): Cursor? {
 
-        // here we are creating a readable
-        // variable of our database
-        // as we want to read value from it
+    fun getSpec(): Cursor? {
         val db = this.readableDatabase
-
-        // below code returns a cursor to
-        // read data from the database
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + "id =" + NUM_COL, null)
 
     }
 
@@ -85,13 +77,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         // here we have defined variables for our database
 
         // below is variable for database name
-        private val DATABASE_NAME = "GEEKS_FOR_GEEKS"
+        private val DATABASE_NAME = "Motor"
 
         // below is the variable for database version
         private val DATABASE_VERSION = 1
 
         // below is the variable for table name
-        val TABLE_NAME = "gfg_table"
+        val TABLE_NAME = "motor"
 
         // below is the variable for id column
         val ID_COL = "id"
@@ -110,6 +102,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val BEAR_COL = "bearing"
         val STAT_COL = "status"
         val DESC_COL = "description"
-
+        val NUM_COL = "3"
     }
 }

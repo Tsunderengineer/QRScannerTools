@@ -34,41 +34,40 @@ class MainActivity : AppCompatActivity() {
             // and passing context to it
             val db = DBHelper(this, null)
 
+
             // below is the variable for cursor
             // we have called method to get
             // all names from our database
             // and add to name text view
-            val cursor = db.getName()
+            val cursor = db.getSpec()
 
             // moving the cursor to first position and
             // appending value in the text view
             cursor!!.moveToFirst()
-            Name.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)) + "\n")
-            Age.append(cursor.getString(cursor.getColumnIndex(DBHelper.AGE_COL)) + "\n")
-            Rpm.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)) + "\n")
-            Kw.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)) + "\n")
-            FrameSize.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)) + "\n")
-            Ampere.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)) + "\n")
-            Hz.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)) + "\n")
-            Power.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)) + "\n")
-            Bearing.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)) + "\n")
-            Status.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)) + "\n")
-            Description.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)) + "\n")
+            NameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
+            RpmOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
+            KwOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
+            FrameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)))
+            AmpereOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)))
+            HzOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)))
+            PowerOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)))
+            BearingOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
+            StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
+            DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
 
             // moving our cursor to next
             // position and appending values
             while(cursor.moveToNext()){
-                Name.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)) + "\n")
-                Age.append(cursor.getString(cursor.getColumnIndex(DBHelper.AGE_COL)) + "\n")
-                Rpm.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)) + "\n")
-                Kw.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)) + "\n")
-                FrameSize.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)) + "\n")
-                Ampere.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)) + "\n")
-                Hz.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)) + "\n")
-                Power.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)) + "\n")
-                Bearing.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)) + "\n")
-                Status.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)) + "\n")
-                Description.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)) + "\n")
+                NameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
+                RpmOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
+                KwOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
+                FrameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)))
+                AmpereOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)))
+                HzOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)))
+                PowerOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)))
+                BearingOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
+                StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
+                DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
             }
 
             // at last we close our cursor
@@ -90,7 +89,8 @@ class MainActivity : AppCompatActivity() {
 
             decodeCallback = DecodeCallback {
                 runOnUiThread {
-                    tv_textView.text = it.text              //Camera input text output
+                    tv_textView.text = it.text
+                    val NUM_COL = tv_textView.text //Camera input text output
 
                 }
             }
