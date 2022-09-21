@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
@@ -67,9 +68,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
 
-    fun getSpec(): Cursor? {
+    fun getSpec(captured_id: String): Cursor? {
         val db = this.readableDatabase
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + "id =" + NUM_COL, null)
+        val searchquery = "SELECT * FROM " + TABLE_NAME + " WHERE " + "id =" + captured_id
+        return db.rawQuery(searchquery, null)
 
     }
 
@@ -102,6 +104,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val BEAR_COL = "bearing"
         val STAT_COL = "status"
         val DESC_COL = "description"
-        val NUM_COL = "3"
+        var NUM_COL = "3"
     }
 }

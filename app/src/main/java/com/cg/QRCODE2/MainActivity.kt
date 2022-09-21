@@ -29,17 +29,8 @@ class MainActivity : AppCompatActivity() {
         codeScanner()
 
         printName.setOnClickListener{
-
-            // creating a DBHelper class
-            // and passing context to it
             val db = DBHelper(this, null)
-
-
-            // below is the variable for cursor
-            // we have called method to get
-            // all names from our database
-            // and add to name text view
-            val cursor = db.getSpec()
+            val cursor = db.getSpec(tv_textView.text as String)
 
             // moving the cursor to first position and
             // appending value in the text view
@@ -90,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             decodeCallback = DecodeCallback {
                 runOnUiThread {
                     tv_textView.text = it.text
-                    val NUM_COL = tv_textView.text //Camera input text output
 
                 }
             }
@@ -153,6 +143,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }
