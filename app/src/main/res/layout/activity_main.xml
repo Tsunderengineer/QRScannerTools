@@ -10,7 +10,7 @@
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         app:autoFocusButtonColor="@android:color/white"
         app:autoFocusButtonVisible="true"
         app:flashButtonColor="@android:color/white"
@@ -27,7 +27,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:text="1"
+        android:text="79"
         android:textColor="@android:color/black" />
 
     <TextView
@@ -45,9 +45,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/Name"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="400dp"
         android:layout_marginLeft="50dp"
-        android:hint="asd"
+        android:hint="asdas"
         android:textColor="@android:color/black" />
 
     <TextView
@@ -66,7 +66,7 @@
         android:layout_below="@+id/NameOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint="sadsd"
         android:textColor="@android:color/black" />
 
     <TextView
@@ -86,7 +86,7 @@
         android:layout_below="@+id/RpmOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -106,7 +106,7 @@
         android:layout_below="@+id/KwOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -126,7 +126,7 @@
         android:layout_below="@+id/FrameOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -146,7 +146,7 @@
         android:layout_below="@+id/AmpereOutput"
         android:layout_marginLeft="92dp"
         android:layout_marginTop="0dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -166,7 +166,7 @@
         android:layout_below="@+id/HzOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -186,7 +186,7 @@
         android:layout_below="@+id/PowerOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -206,7 +206,7 @@
         android:layout_below="@+id/BearingOutput"
         android:layout_marginLeft="92dp"
         android:layout_marginTop="0dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -226,7 +226,7 @@
         android:layout_below="@+id/StatusOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <TextView
@@ -246,17 +246,17 @@
         android:layout_below="@+id/DescriptionOutput"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
-        android:hint="asd"
+        android:hint=""
         android:textColor="@android:color/black" />
 
     <Button
-        android:id="@+id/printName"
+        android:id="@+id/printSpec"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/scanner_view"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="270dp"
         android:text="Print"
         android:textColor="#ffffff"
         android:textSize="10sp" />

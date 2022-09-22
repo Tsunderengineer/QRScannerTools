@@ -5,34 +5,13 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
-    SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
+    SQLiteAssetHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
 
-    // below is the method for creating a database by a sqlite query
-    override fun onCreate(db: SQLiteDatabase) {
-        // below is a sqlite query, where column names
-        // along with their data types is given
-        val query = ("CREATE TABLE " + TABLE_NAME + " ("
-                + ID_COL + " INTEGER PRIMARY KEY, " +
-                NAME_COl + " TEXT," +
-                RPM_COL + "INTEGER," +
-                KW_COL + "REAL," +
-                FRM_COL + "TEXT," +
-                AMP_COL + "REAL," +
-                HZ_COL + "INTEGER," +
-                POW_COL + "INTEGER," +
-                BEAR_COL + "TEXT," +
-                STAT_COL + "TEXT," +
-                DESC_COL + "TEXT," +
-                AGE_COL + "TEXT"+ ")")
-
-        // we are calling sqlite
-        // method for executing our query
-        db.execSQL(query)
-    }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         // this method is to check if table already exists
@@ -67,7 +46,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-
     fun getSpec(captured_id: String): Cursor? {
         val db = this.readableDatabase
         val searchquery = "SELECT * FROM " + TABLE_NAME + " WHERE " + "id =" + captured_id
@@ -79,7 +57,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         // here we have defined variables for our database
 
         // below is variable for database name
-        private val DATABASE_NAME = "Motor"
+        private val DATABASE_NAME = "Motor.db"
 
         // below is the variable for database version
         private val DATABASE_VERSION = 1
@@ -104,6 +82,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val BEAR_COL = "bearing"
         val STAT_COL = "status"
         val DESC_COL = "description"
-        var NUM_COL = "3"
+        var COMPAT_COL = "compatibility"
     }
 }

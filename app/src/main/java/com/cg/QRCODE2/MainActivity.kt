@@ -27,10 +27,21 @@ class MainActivity : AppCompatActivity() {
 
         setupPermission()
         codeScanner()
-
-        printName.setOnClickListener{
+        printSpec.setOnClickListener {
             val db = DBHelper(this, null)
             val cursor = db.getSpec(tv_textView.text as String)
+
+            NameOutput.text = ""
+            RpmOutput.text = ""
+            KwOutput.text = ""
+            FrameOutput.text = ""
+            AmpereOutput.text = ""
+            HzOutput.text = ""
+            PowerOutput.text = ""
+            BearingOutput.text = ""
+            StatusOutput.text = ""
+            DescriptionOutput.text = ""
+            CompatibilityOutput.text = ""
 
             // moving the cursor to first position and
             // appending value in the text view
@@ -45,10 +56,11 @@ class MainActivity : AppCompatActivity() {
             BearingOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
             StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
             DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
+            CompatibilityOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
 
             // moving our cursor to next
             // position and appending values
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 NameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
                 RpmOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
                 KwOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
@@ -59,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 BearingOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
                 StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
                 DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
+                CompatibilityOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
             }
 
             // at last we close our cursor
@@ -73,9 +86,9 @@ class MainActivity : AppCompatActivity() {
             camera = CodeScanner.CAMERA_BACK
             formats = CodeScanner.ALL_FORMATS
 
-            autoFocusMode = AutoFocusMode.CONTINUOUS        //SAFE OR CONTINUOUS
+            autoFocusMode = AutoFocusMode.SAFE       //SAFE OR CONTINUOUS
             scanMode = ScanMode.CONTINUOUS
-            isAutoFocusEnabled = true
+            isAutoFocusEnabled = false
             isFlashEnabled = false
 
             decodeCallback = DecodeCallback {
