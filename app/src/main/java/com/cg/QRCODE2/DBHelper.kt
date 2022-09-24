@@ -20,7 +20,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
     // This method is for adding data in our database
-    fun addName(name : String, age : String, rpm: String, kw: Double, frame: String, amp: Double, hz: Int, power: Int,
+    fun addName(name : String, age : String, rpm: String, kw: String, frame: String, amp: String, hz: String, power: String,
                 bearing: String, status: String, description: String ){
 
         // below we are creating
@@ -32,10 +32,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         values.put(NAME_COl, name)
         values.put(AGE_COL, age)
 
-        // here we are creating a
-        // writable variable of
-        // our database as we want to
-        // insert value in our database
+
         val db = this.writableDatabase
 
         // all values are inserted into database
@@ -51,6 +48,12 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val searchquery = "SELECT * FROM " + TABLE_NAME + " WHERE " + "id =" + captured_id
         return db.rawQuery(searchquery, null)
 
+    }
+
+    fun getAll(): Cursor? {
+        val db = this.readableDatabase
+        val searchqueryall = "SELECT * FROM" + TABLE_NAME
+        return db.rawQuery(searchqueryall, null)
     }
 
     companion object{

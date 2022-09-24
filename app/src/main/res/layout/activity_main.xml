@@ -261,4 +261,16 @@
         android:textColor="#ffffff"
         android:textSize="10sp" />
 
+    <Button
+        android:id="@+id/EditSpec"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scanner_view"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="330dp"
+        android:text="Edit"
+        android:textColor="#ffffff"
+        android:textSize="10sp" />
+
 </RelativeLayout>

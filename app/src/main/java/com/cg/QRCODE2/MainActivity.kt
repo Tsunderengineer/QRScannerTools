@@ -1,5 +1,6 @@
 package com.cg.QRCODE2
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -76,6 +77,11 @@ class MainActivity : AppCompatActivity() {
 
             // at last we close our cursor
             cursor.close()
+        }
+
+        EditSpec.setOnClickListener {
+            val intent = Intent(this, Edit::class.java)
+            startActivity(intent)
         }
     }
 
