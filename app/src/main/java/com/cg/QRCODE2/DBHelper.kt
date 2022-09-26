@@ -20,18 +20,35 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
     // This method is for adding data in our database
-    fun addName(name : String, age : String, rpm: String, kw: String, frame: String, amp: String, hz: String, power: String,
-                bearing: String, status: String, description: String ){
+    fun addSpec(
+        name: String,
+        rpm: String,
+        kw: String,
+        frame: String,
+        amp: String,
+        hz: String,
+        power: String,
+        bearing: String,
+        status: String,
+        description: String,
+        compatibility: String,
+        urx: String
+    ){
 
-        // below we are creating
-        // a content values variable
         val values = ContentValues()
 
-        // we are inserting our values
-        // in the form of key-value pair
         values.put(NAME_COl, name)
-        values.put(AGE_COL, age)
-
+        values.put(RPM_COL, rpm)
+        values.put(KW_COL, kw)
+        values.put(FRM_COL, frame)
+        values.put(AMP_COL, amp)
+        values.put(HZ_COL, hz)
+        values.put(POW_COL, power)
+        values.put(BEAR_COL, bearing)
+        values.put(STAT_COL, status)
+        values.put(DESC_COL, description)
+        values.put(COMPAT_COL, compatibility)
+        values.put(URL_COL, urx)
 
         val db = this.writableDatabase
 
@@ -45,15 +62,61 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     fun getSpec(captured_id: String): Cursor? {
         val db = this.readableDatabase
-        val searchquery = "SELECT * FROM " + TABLE_NAME + " WHERE " + "id =" + captured_id
+        val searchquery = "SELECT * FROM " + TABLE_NAME + " WHERE " + "id = " + captured_id
         return db.rawQuery(searchquery, null)
 
     }
 
-    fun getAll(): Cursor? {
+    //fun getAll(): Cursor? {
+    //    val db = this.readableDatabase
+    //    val searchqueryall = "SELECT * FROM" + TABLE_NAME
+    //    return db.rawQuery(searchqueryall, null)
+    //}
+
+    fun getAll(): ArrayList<MotorControlVariable> {
+        val motorlist: ArrayList<MotorControlVariable> = ArrayList()
         val db = this.readableDatabase
         val searchqueryall = "SELECT * FROM" + TABLE_NAME
-        return db.rawQuery(searchqueryall, null)
+        val cursor: Cursor?
+
+        try {
+            cursor = db.rawQuery(searchqueryall, null)
+        } catch (e: Exception) {
+            db.execSQL(searchqueryall)
+            e.printStackTrace()
+
+            return ArrayList()
+        }
+        var id: Int
+        var name: String
+        var rpm: String
+        var kw: String
+        var frame: String
+        var amp: String
+        var hz: String
+        var power: String
+        var bearing: String
+        var status: String
+        var description: String
+        var compat: String
+        var url: String
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex("id"))
+                name = cursor.getString(cursor.getColumnIndex("name"))
+                rpm = cursor.getString(cursor.getColumnIndex("rpm"))
+                kw = cursor.getString(cursor.getColumnIndex("kw"))
+                frame = cursor.getString(cursor.getColumnIndex("frame"))
+                amp = cursor.getString(cursor.getColumnIndex("amp"))
+                hz = cursor.getString(cursor.getColumnIndex("hz"))
+                power = cursor.getString(cursor.getColumnIndex("power"))
+                bearing = cursor.getString(cursor.getColumnIndex("bearing"))
+                status = cursor.getString(cursor.getColumnIndex("status"))
+                compat = cursor.getString(cursor.getColumnIndex("compat"))
+                url = cursor.getString(cursor.getColumnIndex("url"))
+            } while (cursor.moveToNext())
+        }
+        return motorlist
     }
 
     companion object{
@@ -85,6 +148,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val BEAR_COL = "bearing"
         val STAT_COL = "status"
         val DESC_COL = "description"
-        var COMPAT_COL = "compatibility"
+        val COMPAT_COL = "compatibility"
+        val URL_COL = "url"
     }
 }

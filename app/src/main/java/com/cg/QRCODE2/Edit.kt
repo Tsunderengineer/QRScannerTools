@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_edit.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class Edit : AppCompatActivity() {
 
@@ -18,19 +17,10 @@ class Edit : AppCompatActivity() {
 
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        // below code is to add on click
-        // listener to our add name button
         addEntry.setOnClickListener{
 
-            // below we have created
-            // a new DBHelper class,
-            // and passed context to it
             val db = DBHelper(this, null)
 
-            // creating variables for values
-            // in name and age edit texts
-            //    fun addName(name : String, age : String, rpm: String, kw: Double, frame: String, amp: Double, hz: Int, power: Int,
-            //                bearing: String, status: String, description: String )
             val name = enterName.text.toString()
             val rpm = enterRpm.text.toString()
             val kw = enterKw.text.toString()
@@ -42,10 +32,8 @@ class Edit : AppCompatActivity() {
             val status = enterStat.text.toString()
             val description = enterDesc.text.toString()
             val compatibility = enterCompat.text.toString()
-
-            // calling method to add
-            // name to our database
-            db.addName(name, rpm, kw, frame, amp, hz, power, bearing, status, description, compatibility)
+            val urx = enterURL.text.toString()
+            db.addSpec(name, rpm, kw, frame, amp, hz, power, bearing, status, description, compatibility, urx)
 
             // Toast to message on the screen
             Toast.makeText(this, name + " added to database", Toast.LENGTH_LONG).show()
@@ -62,6 +50,7 @@ class Edit : AppCompatActivity() {
             enterStat.text.clear()
             enterDesc.text.clear()
             enterCompat.text.clear()
+            enterURL.text.clear()
         }
 
         // below code is to add on click

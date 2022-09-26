@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             StatusOutput.text = ""
             DescriptionOutput.text = ""
             CompatibilityOutput.text = ""
+            URLOutput.text = ""
 
             // moving the cursor to first position and
             // appending value in the text view
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
             StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
             DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
             CompatibilityOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
+            URLOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.URL_COL)))
 
             // moving our cursor to next
             // position and appending values
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
                 DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
                 CompatibilityOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
+                URLOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.URL_COL)))
             }
 
             // at last we close our cursor
@@ -115,14 +118,6 @@ class MainActivity : AppCompatActivity() {
             codeScanner.startPreview()
         }
     }
-
-    private val urlPattern: Pattern = Pattern.compile(                      //URL pattern recognition
-        "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
-                + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
-                + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)",
-        Pattern.CASE_INSENSITIVE or Pattern.MULTILINE or Pattern.DOTALL
-    )
-
 
     override fun onResume() {
         super.onResume()
