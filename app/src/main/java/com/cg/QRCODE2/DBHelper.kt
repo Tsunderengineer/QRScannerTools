@@ -14,14 +14,11 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
-        // this method is to check if table already exists
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
         onCreate(db)
     }
 
-    // This method is for adding data in our database
-    fun addSpec(
-        name: String,
+    fun addSpec(name: String,
         rpm: String,
         kw: String,
         frame: String,
@@ -51,12 +48,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         values.put(URL_COL, urx)
 
         val db = this.writableDatabase
-
-        // all values are inserted into database
         db.insert(TABLE_NAME, null, values)
-
-        // at last we are
-        // closing our database
         db.close()
     }
 
@@ -67,16 +59,16 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     }
 
-    //fun getAll(): Cursor? {
-    //    val db = this.readableDatabase
-    //    val searchqueryall = "SELECT * FROM" + TABLE_NAME
-    //    return db.rawQuery(searchqueryall, null)
-    //}
+    fun getAllX(): Cursor? {
+        val db = this.readableDatabase
+        val searchqueryall = "SELECT * FROM " + TABLE_NAME
+        return db.rawQuery(searchqueryall, null)
+    }
 
     fun getAll(): ArrayList<MotorControlVariable> {
         val motorlist: ArrayList<MotorControlVariable> = ArrayList()
         val db = this.readableDatabase
-        val searchqueryall = "SELECT * FROM" + TABLE_NAME
+        val searchqueryall = "SELECT * FROM " + TABLE_NAME
         val cursor: Cursor?
 
         try {
@@ -112,8 +104,27 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                 power = cursor.getString(cursor.getColumnIndex("power"))
                 bearing = cursor.getString(cursor.getColumnIndex("bearing"))
                 status = cursor.getString(cursor.getColumnIndex("status"))
-                compat = cursor.getString(cursor.getColumnIndex("compat"))
+                description = cursor.getString(cursor.getColumnIndex("description"))
+                compat = cursor.getString(cursor.getColumnIndex("compatibility"))
                 url = cursor.getString(cursor.getColumnIndex("url"))
+
+                val mtr = MotorControlVariable(
+                    id = id,
+                    name = name,
+                    rpm = rpm,
+                    kw = kw,
+                    frame = frame,
+                    amp = amp,
+                    hz = hz,
+                    power = power,
+                    bearing = bearing,
+                    status = status,
+                    description = description,
+                    compatibility = compat,
+                    url = url)
+
+                motorlist.add(mtr)
+
             } while (cursor.moveToNext())
         }
         return motorlist

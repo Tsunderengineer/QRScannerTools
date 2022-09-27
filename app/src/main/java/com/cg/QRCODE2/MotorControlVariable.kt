@@ -2,8 +2,6 @@ package com.cg.QRCODE2
 
 import java.util.*
 
-//db.addSpec(name, rpm, kw, frame, amp, hz, power, bearing, status, description, compatibility, urx)
-
 data class MotorControlVariable (
     var id: Int = IdQuery(),
     var name: String = "",

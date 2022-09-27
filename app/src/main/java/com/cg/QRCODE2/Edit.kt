@@ -1,105 +1,95 @@
 package com.cg.QRCODE2
 
+import android.app.AlertDialog
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout
+import android.util.Log
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_edit.*
+import kotlinx.android.synthetic.main.add_dialogue.*
+import kotlinx.android.synthetic.main.motorcard.*
 
 class Edit : AppCompatActivity() {
-
+    private lateinit var recyclerView: RecyclerView
+    private var adapter: MotorAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
+        showAddDialog()
+        initview()
+        initRecyclerView()
 
-        val actionBar = supportActionBar
+        showEntry.setOnClickListener { getMotor() }
+    }
 
-        actionBar!!.title = "Database Editor"
+    private fun getMotor(){
+        val db = DBHelper(this, null)
+        val mtrList = db.getAll()
+        //Log.e("pppp", "$mtrList.size")
 
-        actionBar.setDisplayHomeAsUpEnabled(true)
+        adapter?.addItems(mtrList)
+    }
 
-        addEntry.setOnClickListener{
-
+    private fun showAddDialog() {
+        dialogue.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val dialogLayout = inflater.inflate(R.layout.add_dialogue,null)
+            val editName = dialogLayout.findViewById<EditText>(R.id.enterName)
+            val editRpm = dialogLayout.findViewById<EditText>(R.id.enterRpm)
+            val editKw = dialogLayout.findViewById<EditText>(R.id.enterKw)
+            val editFrame = dialogLayout.findViewById<EditText>(R.id.enterFrame)
+            val editAmp = dialogLayout.findViewById<EditText>(R.id.enterAmp)
+            val editHz = dialogLayout.findViewById<EditText>(R.id.enterHz)
+            val editPower = dialogLayout.findViewById<EditText>(R.id.enterPow)
+            val editBearing = dialogLayout.findViewById<EditText>(R.id.enterBear)
+            val editStatus = dialogLayout.findViewById<EditText>(R.id.enterStat)
+            val editDescription = dialogLayout.findViewById<EditText>(R.id.enterDesc)
+            val editCompatibility = dialogLayout.findViewById<EditText>(R.id.enterCompat)
+            val editUrl = dialogLayout.findViewById<EditText>(R.id.enterURL)
             val db = DBHelper(this, null)
 
-            val name = enterName.text.toString()
-            val rpm = enterRpm.text.toString()
-            val kw = enterKw.text.toString()
-            val frame = enterFrame.text.toString()
-            val amp = enterAmp.text.toString()
-            val hz = enterHz.text.toString()
-            val power = enterPow.text.toString()
-            val bearing = enterBear.text.toString()
-            val status = enterStat.text.toString()
-            val description = enterDesc.text.toString()
-            val compatibility = enterCompat.text.toString()
-            val urx = enterURL.text.toString()
-            db.addSpec(name, rpm, kw, frame, amp, hz, power, bearing, status, description, compatibility, urx)
+            with(builder) {
+                setTitle("Enter motor information")
+                setPositiveButton("Add") {dialog, which ->
+                    enterName.text = editName.text
+                    enterRpm.text = editRpm.text
+                    enterKw.text = editKw.text
+                    enterFrame.text = editFrame.text
+                    enterAmp.text = editAmp.text
+                    enterHz.text = editHz.text
+                    enterPow.text = editPower.text
+                    enterBear.text = editBearing.text
+                    enterStat.text = editStatus.text
+                    enterDesc.text = editDescription.text
+                    enterCompat.text = editCompatibility.text
+                    enterURL.text = editUrl.text
 
-            // Toast to message on the screen
-            Toast.makeText(this, name + " added to database", Toast.LENGTH_LONG).show()
-
-            // at last, clearing edit texts
-            enterName.text.clear()
-            enterRpm.text.clear()
-            enterKw.text.clear()
-            enterFrame.text.clear()
-            enterAmp.text.clear()
-            enterHz.text.clear()
-            enterPow.text.clear()
-            enterBear.text.clear()
-            enterStat.text.clear()
-            enterDesc.text.clear()
-            enterCompat.text.clear()
-            enterURL.text.clear()
-        }
-
-        // below code is to add on click
-        // listener to our print name button
-        showEntry.setOnClickListener{
-
-            // creating a DBHelper class
-            // and passing context to it
-            val db = DBHelper(this, null)
-
-            // below is the variable for cursor
-            // we have called method to get
-            // all names from our database
-            // and add to name text view
-            val cursor = db.getAll()
-
-            // moving the cursor to first position and
-            // appending value in the text view
-            cursor!!.moveToFirst()
-            NameEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
-            RpmEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
-            KwEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
-            FrameSizeEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)))
-            AmpereEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)))
-            HzEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)))
-            PowerEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)))
-            BearingEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
-            StatusEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
-            DescriptionEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
-            CompatibilityEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
-
-            // moving our cursor to next
-            // position and appending values
-            while (cursor.moveToNext()) {
-                NameEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
-                RpmEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
-                KwEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
-                FrameSizeEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)))
-                AmpereEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)))
-                HzEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)))
-                PowerEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)))
-                BearingEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
-                StatusEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
-                DescriptionEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
-                CompatibilityEditOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
+                }
+                setNegativeButton("Cancel"){dialog, which ->
+                    Log.d("Main", "Negative button clicked")
+                }
+                setView(dialogLayout)
+                show()
             }
-
-            // at last we close our cursor
-            cursor.close()
         }
     }
+    private fun initview(){
+        recyclerView = findViewById(R.id.recyclerView)
+    }
+
+    private fun initRecyclerView(){
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = MotorAdapter()
+        recyclerView.adapter = adapter
+    }
 }
+
+

@@ -267,30 +267,33 @@
         android:layout_marginTop="0dp"
         android:layout_marginLeft="92dp"
         android:autoLink="web"
-        android:text="www.google.com"
+        android:text=""
         android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center"
+        android:layout_below="@+id/scanner_view"
+        android:layout_marginLeft="120sp">
 
     <Button
         android:id="@+id/printSpec"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scanner_view"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="270dp"
         android:text="Print"
         android:textColor="#ffffff"
+        android:layout_marginRight="10sp"
         android:textSize="10sp" />
 
     <Button
         android:id="@+id/EditSpec"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scanner_view"
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="50dp"
         android:text="Edit"
         android:textColor="#ffffff"
         android:textSize="10sp" />
+    </LinearLayout>
 
 </RelativeLayout>
