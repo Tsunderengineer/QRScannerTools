@@ -1,32 +1,46 @@
 package com.cg.QRCODE2
 
 import android.app.AlertDialog
-import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
-import android.view.LayoutInflater
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_edit.*
-import kotlinx.android.synthetic.main.add_dialogue.*
-import kotlinx.android.synthetic.main.motorcard.*
 
 class Edit : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private var adapter: MotorAdapter? = null
+    private var mtr: MotorControlVariable? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
         showAddDialog()
         initview()
         initRecyclerView()
+        getMotor()
+        adapter?.setOnClickItem{
+            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+            enterName.setText(it.name)
+            enterRpm.setText(it.rpm)
+            enterKw.setText(it.kw)
+            enterFrame.setText(it.frame)
+            enterAmp.setText(it.amp)
+            enterHz.setText(it.hz)
+            enterPow.setText(it.power)
+            enterBear.setText(it.bearing)
+            enterStat.setText(it.status)
+            enterDesc.setText(it.description)
+            enterCompat.setText(it.compatibility)
+            enterURL.setText(it.url)
 
-        showEntry.setOnClickListener { getMotor() }
+            mtr = it
+        }
+
+        showEntry.setOnClickListener { updateMotor() }
     }
 
     private fun getMotor(){
@@ -38,48 +52,94 @@ class Edit : AppCompatActivity() {
     }
 
     private fun showAddDialog() {
-        dialogue.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
-            val inflater = layoutInflater
-            val dialogLayout = inflater.inflate(R.layout.add_dialogue,null)
-            val editName = dialogLayout.findViewById<EditText>(R.id.enterName)
-            val editRpm = dialogLayout.findViewById<EditText>(R.id.enterRpm)
-            val editKw = dialogLayout.findViewById<EditText>(R.id.enterKw)
-            val editFrame = dialogLayout.findViewById<EditText>(R.id.enterFrame)
-            val editAmp = dialogLayout.findViewById<EditText>(R.id.enterAmp)
-            val editHz = dialogLayout.findViewById<EditText>(R.id.enterHz)
-            val editPower = dialogLayout.findViewById<EditText>(R.id.enterPow)
-            val editBearing = dialogLayout.findViewById<EditText>(R.id.enterBear)
-            val editStatus = dialogLayout.findViewById<EditText>(R.id.enterStat)
-            val editDescription = dialogLayout.findViewById<EditText>(R.id.enterDesc)
-            val editCompatibility = dialogLayout.findViewById<EditText>(R.id.enterCompat)
-            val editUrl = dialogLayout.findViewById<EditText>(R.id.enterURL)
-            val db = DBHelper(this, null)
+        dialogue.setOnClickListener{ val db = DBHelper(this, null)
+            val name = enterName.text.toString()
+            val rpm = enterRpm.text.toString()
+            val kw = enterKw.text.toString()
+            val frame = enterFrame.text.toString()
+            val amp = enterAmp.text.toString()
+            val hz = enterHz.text.toString()
+            val power = enterPow.text.toString()
+            val bearing = enterBear.text.toString()
+            val status = enterStat.text.toString()
+            val description = enterDesc.text.toString()
+            val compatibility = enterCompat.text.toString()
+            val url = enterURL.text.toString()
+            db.addSpec(name, rpm, kw, frame, amp, hz, power, bearing, status, description, compatibility, url)
 
-            with(builder) {
-                setTitle("Enter motor information")
-                setPositiveButton("Add") {dialog, which ->
-                    enterName.text = editName.text
-                    enterRpm.text = editRpm.text
-                    enterKw.text = editKw.text
-                    enterFrame.text = editFrame.text
-                    enterAmp.text = editAmp.text
-                    enterHz.text = editHz.text
-                    enterPow.text = editPower.text
-                    enterBear.text = editBearing.text
-                    enterStat.text = editStatus.text
-                    enterDesc.text = editDescription.text
-                    enterCompat.text = editCompatibility.text
-                    enterURL.text = editUrl.text
+            // Toast to message on the screen
+            Toast.makeText(this, name + " added to database", Toast.LENGTH_LONG).show()
 
-                }
-                setNegativeButton("Cancel"){dialog, which ->
-                    Log.d("Main", "Negative button clicked")
-                }
-                setView(dialogLayout)
-                show()
-            }
+            // at last, clearing edit texts
+            enterName.text.clear()
+            enterRpm.text.clear()
+            enterKw.text.clear()
+            enterFrame.text.clear()
+            enterAmp.text.clear()
+            enterHz.text.clear()
+            enterPow.text.clear()
+            enterBear.text.clear()
+            enterStat.text.clear()
+            enterDesc.text.clear()
+            enterCompat.text.clear()
+            enterURL.text.clear()
         }
+    }
+    private fun updateMotor(){
+        val name = enterName.text.toString()
+        val rpm = enterRpm.text.toString()
+        val kw = enterKw.text.toString()
+        val frame = enterFrame.text.toString()
+        val amp = enterAmp.text.toString()
+        val hz = enterHz.text.toString()
+        val power = enterPow.text.toString()
+        val bearing = enterBear.text.toString()
+        val status = enterStat.text.toString()
+        val description = enterDesc.text.toString()
+        val compatibility = enterCompat.text.toString()
+        val url = enterURL.text.toString()
+
+        if (name == mtr?.name
+            && rpm == mtr?.rpm
+            && kw == mtr?.kw
+            && frame == mtr?.frame
+            && amp == mtr?.amp
+            && hz == mtr?.hz
+            && power == mtr?.power
+            && bearing == mtr?.bearing
+            && status == mtr?.status
+            && description == mtr?.description
+            && compatibility == mtr?.compatibility
+            && url == mtr?.url) {
+            Toast.makeText(this, "Record has not changed", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (mtr == null){
+            return
+        }
+
+        val db = DBHelper(this, null)
+        val mtr = MotorControlVariable(id = mtr!!.id,
+        name = name,
+        rpm = rpm,
+        kw = kw,
+        frame = frame,
+        amp = amp,
+        hz = hz,
+        power = power,
+        bearing = bearing,
+        status = status,
+        description = description,
+        compatibility = compatibility,
+        url = url)
+        val statusx = db.updatemotor(mtr)
+        if (statusx > -1) {
+            clearEditText()
+            getMotor()
+    }else{
+        Toast.makeText(this, "Cannot update the database", Toast.LENGTH_SHORT).show()
+    }
     }
     private fun initview(){
         recyclerView = findViewById(R.id.recyclerView)
@@ -89,6 +149,22 @@ class Edit : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MotorAdapter()
         recyclerView.adapter = adapter
+    }
+
+    private fun clearEditText() {
+        enterName.setText("")
+        enterRpm.setText("")
+        enterKw.setText("")
+        enterFrame.setText("")
+        enterAmp.setText("")
+        enterHz.setText("")
+        enterPow.setText("")
+        enterBear.setText("")
+        enterStat.setText("")
+        enterDesc.setText("")
+        enterCompat.setText("")
+        enterURL.setText("")
+
     }
 }
 

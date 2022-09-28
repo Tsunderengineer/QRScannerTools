@@ -1,5 +1,6 @@
 package com.cg.QRCODE2
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -18,7 +19,29 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         onCreate(db)
     }
 
-    fun addSpec(name: String,
+    fun updatemotor(mtr: MotorControlVariable): Int{
+        val db = this.writableDatabase
+
+        val values = ContentValues()
+        values.put(ID_COL, mtr.id)
+        values.put(NAME_COl, mtr.name)
+        values.put(RPM_COL, mtr.rpm)
+        values.put(KW_COL, mtr.kw)
+        values.put(HZ_COL, mtr.hz)
+        values.put(POW_COL, mtr.power)
+        values.put(BEAR_COL, mtr.bearing)
+        values.put(STAT_COL, mtr.status)
+        values.put(DESC_COL, mtr.description)
+        values.put(COMPAT_COL, mtr.compatibility)
+        values.put(URL_COL, mtr.url)
+
+        val success = db.update(TABLE_NAME, values, "id=" + mtr.id, null)
+        db.close()
+        return success
+    }
+
+    fun addSpec(
+        name: String,
         rpm: String,
         kw: String,
         frame: String,
@@ -29,7 +52,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         status: String,
         description: String,
         compatibility: String,
-        urx: String
+        url: String
     ){
 
         val values = ContentValues()
@@ -45,7 +68,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         values.put(STAT_COL, status)
         values.put(DESC_COL, description)
         values.put(COMPAT_COL, compatibility)
-        values.put(URL_COL, urx)
+        values.put(URL_COL, url)
 
         val db = this.writableDatabase
         db.insert(TABLE_NAME, null, values)
@@ -65,6 +88,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return db.rawQuery(searchqueryall, null)
     }
 
+    //@SuppressLint("Range")
     fun getAll(): ArrayList<MotorControlVariable> {
         val motorlist: ArrayList<MotorControlVariable> = ArrayList()
         val db = this.readableDatabase
@@ -131,25 +155,11 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
     companion object{
-        // here we have defined variables for our database
-
-        // below is variable for database name
         private val DATABASE_NAME = "Motor.db"
-
-        // below is the variable for database version
         private val DATABASE_VERSION = 1
-
-        // below is the variable for table name
         val TABLE_NAME = "motor"
-
-        // below is the variable for id column
         val ID_COL = "id"
-
-        // below is the variable for name column
         val NAME_COl = "name"
-
-        // below is the variable for age column
-        val AGE_COL = "age"
         val RPM_COL = "rpm"
         val KW_COL = "kw"
         val FRM_COL = "frame"

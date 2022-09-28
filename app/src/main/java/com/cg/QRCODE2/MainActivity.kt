@@ -28,26 +28,56 @@ class MainActivity : AppCompatActivity() {
 
         setupPermission()
         codeScanner()
-        printSpec.setOnClickListener {
-            val db = DBHelper(this, null)
-            val cursor = db.getSpec(tv_textView.text as String)
+        printSpec.setOnClickListener {SpecPrinter()}
 
-            NameOutput.text = ""
-            RpmOutput.text = ""
-            KwOutput.text = ""
-            FrameOutput.text = ""
-            AmpereOutput.text = ""
-            HzOutput.text = ""
-            PowerOutput.text = ""
-            BearingOutput.text = ""
-            StatusOutput.text = ""
-            DescriptionOutput.text = ""
-            CompatibilityOutput.text = ""
-            URLOutput.text = ""
+        EditSpec.setOnClickListener {
+            val intent = Intent(this, Edit::class.java)
+            startActivity(intent)
+        }
+    }
 
-            // moving the cursor to first position and
-            // appending value in the text view
-            cursor!!.moveToFirst()
+    private fun SpecPrinter(){
+        val db = DBHelper(this, null)
+        val cursor = db.getSpec(tv_textView.text as String)
+
+        try {
+            cursor
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return
+        }
+
+        NameOutput.text = ""
+        RpmOutput.text = ""
+        KwOutput.text = ""
+        FrameOutput.text = ""
+        AmpereOutput.text = ""
+        HzOutput.text = ""
+        PowerOutput.text = ""
+        BearingOutput.text = ""
+        StatusOutput.text = ""
+        DescriptionOutput.text = ""
+        CompatibilityOutput.text = ""
+        URLOutput.text = ""
+
+
+        cursor!!.moveToFirst()
+        NameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
+        RpmOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
+        KwOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
+        FrameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)))
+        AmpereOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)))
+        HzOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)))
+        PowerOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)))
+        BearingOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
+        StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
+        DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
+        CompatibilityOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
+        URLOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.URL_COL)))
+
+        // moving our cursor to next
+        // position and appending values
+        while (cursor.moveToNext()) {
             NameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
             RpmOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
             KwOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
@@ -60,32 +90,11 @@ class MainActivity : AppCompatActivity() {
             DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
             CompatibilityOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
             URLOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.URL_COL)))
-
-            // moving our cursor to next
-            // position and appending values
-            while (cursor.moveToNext()) {
-                NameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl)))
-                RpmOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.RPM_COL)))
-                KwOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.KW_COL)))
-                FrameOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.FRM_COL)))
-                AmpereOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.AMP_COL)))
-                HzOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.HZ_COL)))
-                PowerOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.POW_COL)))
-                BearingOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.BEAR_COL)))
-                StatusOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.STAT_COL)))
-                DescriptionOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.DESC_COL)))
-                CompatibilityOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.COMPAT_COL)))
-                URLOutput.append(cursor.getString(cursor.getColumnIndex(DBHelper.URL_COL)))
-            }
-
-            // at last we close our cursor
-            cursor.close()
         }
 
-        EditSpec.setOnClickListener {
-            val intent = Intent(this, Edit::class.java)
-            startActivity(intent)
-        }
+
+        // at last we close our cursor
+        cursor.close()
     }
 
     private fun codeScanner() {

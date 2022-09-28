@@ -9,20 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MotorAdapter: RecyclerView.Adapter<MotorAdapter.MotorViewer>() {
     private var mtrList: ArrayList<MotorControlVariable> = ArrayList()
+    private var onClickItem: ((MotorControlVariable) -> Unit)? = null
 
     fun addItems(items: ArrayList<MotorControlVariable>){
         this.mtrList = items
         notifyDataSetChanged()
+    }
+    fun setOnClickItem(callback: (MotorControlVariable) -> Unit) {
+        this.onClickItem = callback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MotorViewer(
         LayoutInflater.from(parent.context).inflate(R.layout.motorcard, parent, false)
     )
 
-
     override fun onBindViewHolder(holder: MotorViewer, position: Int) {
         val mtr = mtrList[position]
         holder.bindView(mtr)
+        holder.itemView.setOnClickListener{onClickItem?.invoke(mtr)}
     }
 
     override fun getItemCount(): Int {
@@ -64,3 +68,4 @@ class MotorAdapter: RecyclerView.Adapter<MotorAdapter.MotorViewer>() {
 
 
 }
+

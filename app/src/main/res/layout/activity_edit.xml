@@ -7,6 +7,94 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/enterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:hint="Enter Name"
+        android:layout_margin="2sp"/>
+
+    <EditText
+        android:id="@+id/enterRpm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter RPM"
+        android:textSize="8sp" />
+
+    <EditText
+        android:id="@+id/enterKw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter KW"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Frame Size"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterAmp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Ampere"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterHz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Hz"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterPow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Power"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterBear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Bearing"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterStat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Status"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Description"
+        android:textSize="8sp" />
+    <EditText
+        android:id="@+id/enterCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter Compatibility"
+        android:textSize="8sp" />
+
+    <EditText
+        android:id="@+id/enterURL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:hint="Enter URL"
+        android:textSize="8sp" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +113,7 @@
     <Button
         android:id="@+id/showEntry"
         android:layout_width="wrap_content"
-        android:text="Show"
+        android:text="Refresh"
         android:textColor="#ffffff"
         android:textSize="15sp"
         android:layout_height="wrap_content"/>
